@@ -28,20 +28,28 @@ let currentDisplaytext = [];
 const operators = ["*", "+", "-", "/"];
 
 function populateScreen(char) {
+    /* Handles cases where an operator is pressed after calculating the result */
     if (firstPress) {
-        displayText.textContent = ""
+        num1 = Number(displayText.textContent)
+        opr = char
+        currentDisplaytext = []
         firstPress = false
+        return
     }
+    /* Handles the usual first number is entered for first time */
     if (!operators.includes(char)) {
         currentDisplaytext.push(char);
     }
     else{
+        /* Handles the usual case where one operator is used*/
         if (opr === "" ){
             num1 = Number(currentDisplaytext.join(""))
             opr = char
             currentDisplaytext = []
             return
         }
+
+        /* Handles cases where one or more operators are used*/
         else{
             num2 = Number(currentDisplaytext.join("")) || 0;
             console.log(`Calculating: ${num1} ${opr} ${num2}`);  
@@ -65,6 +73,7 @@ function clearScreen(){
     num1 = 0, num2 = 0
     opr = ""
     currentDisplaytext = []
+    firstPress = false
     displayText.textContent = "0"
 }
 
